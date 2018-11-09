@@ -119,8 +119,15 @@ namespace Cowboy.Sockets
 
         private void SetSocketOptions()
         {
-            _listener.AllowNatTraversal(_configuration.AllowNatTraversal);
-            _listener.Server.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, _configuration.ReuseAddress);
+            try
+            {
+                _listener.AllowNatTraversal(_configuration.AllowNatTraversal);
+                _listener.Server.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, _configuration.ReuseAddress);
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         private void ContinueAcceptSession(TcpListener listener)
